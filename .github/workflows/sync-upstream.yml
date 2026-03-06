@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: '30 3 * * *'   # 03:30 UTC setiap hari (30 menit setelah wilayah utama)
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Paksa sync walau hash upstream tidak berubah'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   sync:
@@ -25,6 +31,8 @@ jobs:
 
       - name: Cek hash upstream (branch main)
         id: check
+        env:
+          FORCE_SYNC: ${{ github.event.inputs.force || 'false' }}
         run: |
           UPSTREAM_HASH=$(curl -sf \
             -H "Accept: application/vnd.github.v3+json" \
@@ -45,11 +53,17 @@ jobs:
             exit 1
           fi
 
-          if [ "$UPSTREAM_HASH" != "$CURRENT_HASH" ]; then
+          if [ "$FORCE_SYNC" = "true" ]; then
             echo "changed=true"  >> $GITHUB_OUTPUT
+            echo "mode=force"    >> $GITHUB_OUTPUT
+            echo "🔁 Force sync aktif: menjalankan sinkronisasi walau hash sama."
+          elif [ "$UPSTREAM_HASH" != "$CURRENT_HASH" ]; then
+            echo "changed=true"  >> $GITHUB_OUTPUT
+            echo "mode=hash"     >> $GITHUB_OUTPUT
             echo "📦 Boundaries berubah: $CURRENT_HASH → $UPSTREAM_HASH"
           else
             echo "changed=false" >> $GITHUB_OUTPUT
+            echo "mode=skip"     >> $GITHUB_OUTPUT
             echo "✅ Boundaries sudah up-to-date."
           fi
 
