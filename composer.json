@@ -1,0 +1,51 @@
+{
+    "name": "aliziodev/laravel-wilayah-boundaries",
+    "description": "Addon data polygon batas wilayah administrasi Indonesia untuk package aliziodev/laravel-wilayah.",
+    "keywords": ["laravel", "indonesia", "wilayah", "boundaries", "polygon", "geojson", "map"],
+    "homepage": "https://github.com/aliziodev/laravel-wilayah-boundaries",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Aliziodev",
+            "email": "aliziodev@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2|^8.3",
+        "aliziodev/laravel-wilayah": "^1.0",
+        "illuminate/support": "^11.0|^12.0|^13.0",
+        "illuminate/database": "^11.0|^12.0|^13.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0|^10.0",
+        "pestphp/pest": "^3.0|^4.0",
+        "pestphp/pest-plugin-laravel": "^3.0|^4.0",
+        "pestphp/pest-plugin-drift": "^3.0|^4.0",
+        "laravel/pint": "^1.27"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aliziodev\\WilayahBoundaries\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Aliziodev\\WilayahBoundaries\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Aliziodev\\WilayahBoundaries\\BoundariesServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
