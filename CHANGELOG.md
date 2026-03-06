@@ -11,6 +11,16 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 
 ---
 
+## [1.0.2] — 2026-03-06
+
+### Data Sync
+- Package version: `1.0.1` -> `1.0.2`
+- Upstream `cahyadsn/wilayah_boundaries`: `90f900873a13` -> `90f900873a13`
+
+### Statistik
+- Total boundaries: 4414 -> 90804 (+86390)
+---
+
 ## [1.0.1] — 2026-03-06
 
 ### Data Sync
@@ -21,5 +31,6 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 - Total boundaries: 0 -> 4414 (+4414)
 ---
 
-[Unreleased]: https://github.com/aliziodev/laravel-wilayah-boundaries/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/aliziodev/laravel-wilayah-boundaries/compare/v1.0.2...HEAD
 [1.0.1]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.1
+[1.0.2]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.2
