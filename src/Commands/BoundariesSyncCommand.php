@@ -24,10 +24,12 @@ class BoundariesSyncCommand extends Command
         $this->line("Package version : v{$pkg['version']} ({$pkg['data_date']})");
 
         $dbCount = \Illuminate\Support\Facades\DB::table('region_boundaries')->count();
-        $pkgCount = $pkg['counts']['total'] ?? 'N/A';
+        $pkgCount = $pkg['counts']['total'] ?? $pkg['total'] ?? 'N/A';
+        $assetName = $pkg['asset']['name'] ?? 'N/A';
 
         $this->line("Di database     : {$dbCount}");
         $this->line("Di package      : {$pkgCount}");
+        $this->line("Dataset asset   : {$assetName}");
 
         if ($dryRun) {
             $this->comment('ℹ️  Dry-run: tidak ada perubahan diterapkan.');

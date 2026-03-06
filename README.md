@@ -2,6 +2,8 @@
 
 Addon data **polygon batas wilayah** Indonesia untuk package [`aliziodev/laravel-wilayah`](https://github.com/aliziodev/laravel-wilayah).
 
+Dataset boundaries tidak lagi disimpan sebagai ribuan file PHP di source repo. Package ini memakai manifest ringan di repo dan dataset terkompresi (`ndjson.gz`) yang diunduh saat diperlukan.
+
 ## Requirements
 
 ```bash
@@ -47,6 +49,14 @@ foreach ($provinces as $province) {
 php artisan boundaries:sync --dry-run
 php artisan boundaries:sync
 ```
+
+## Cara Kerja Dataset
+
+- Repo package hanya menyimpan metadata kecil di `data/version.php`
+- Dataset boundaries dibangun oleh GitHub Actions sebagai release asset `.ndjson.gz`
+- Saat `boundaries:seed` atau `boundaries:sync` dijalankan, package akan memakai dataset lokal yang sudah ada atau mengunduh asset release yang sesuai
+
+Pendekatan ini menjaga ukuran repo dan install Composer tetap ringan walaupun data polygon sangat besar.
 
 ## License
 

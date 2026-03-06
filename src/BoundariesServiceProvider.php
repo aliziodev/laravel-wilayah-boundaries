@@ -5,15 +5,19 @@ namespace Aliziodev\WilayahBoundaries;
 use Aliziodev\WilayahBoundaries\Commands\BoundariesSeedCommand;
 use Aliziodev\WilayahBoundaries\Commands\BoundariesSyncCommand;
 use Aliziodev\WilayahBoundaries\Services\BoundaryService;
+use Aliziodev\WilayahBoundaries\Support\DatasetManager;
 use Illuminate\Support\ServiceProvider;
 
 class BoundariesServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/boundaries.php', 'boundaries');
+
         // Daftarkan BoundaryService sebagai singleton
         $this->app->singleton('wilayah-boundary', fn () => new BoundaryService);
         $this->app->alias('wilayah-boundary', BoundaryService::class);
+        $this->app->singleton(DatasetManager::class, fn () => new DatasetManager);
     }
 
     public function boot(): void
@@ -22,6 +26,10 @@ class BoundariesServiceProvider extends ServiceProvider
         $this->injectRelations();
 
         if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/boundaries.php' => config_path('boundaries.php'),
+            ], 'wilayah-boundaries-config');
+
             $this->publishes([
                 __DIR__.'/Database/Migrations/' => database_path('migrations'),
             ], 'wilayah-boundaries-migrations');
