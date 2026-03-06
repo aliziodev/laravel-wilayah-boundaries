@@ -1,7 +1,15 @@
 {
     "name": "aliziodev/laravel-wilayah-boundaries",
     "description": "Addon data polygon batas wilayah administrasi Indonesia untuk package aliziodev/laravel-wilayah.",
-    "keywords": ["laravel", "indonesia", "wilayah", "boundaries", "polygon", "geojson", "map"],
+    "keywords": [
+        "laravel",
+        "indonesia",
+        "wilayah",
+        "boundaries",
+        "polygon",
+        "geojson",
+        "map"
+    ],
     "homepage": "https://github.com/aliziodev/laravel-wilayah-boundaries",
     "license": "MIT",
     "type": "library",
@@ -47,5 +55,6 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
-    }
+    },
+    "version": "1.0.1"
 }
