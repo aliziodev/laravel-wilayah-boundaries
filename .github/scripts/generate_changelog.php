@@ -15,9 +15,12 @@ $current = loadVersionFile($currentVersionPath);
 $releaseDate = $current['data_date'] ?? gmdate('Y-m-d');
 $oldHash = shortHash($previous['source']['hash'] ?? $previous['source_hash'] ?? 'unknown');
 $newHash = shortHash($current['source']['hash'] ?? $current['source_hash'] ?? 'unknown');
-$oldTotal = (int) ($previous['total'] ?? 0);
-$newTotal = (int) ($current['total'] ?? 0);
+$oldTotal = (int) ($previous['counts']['total'] ?? $previous['total'] ?? 0);
+$newTotal = (int) ($current['counts']['total'] ?? $current['total'] ?? 0);
 $delta = $newTotal - $oldTotal;
+$assetName = (string) ($current['asset']['name'] ?? 'boundaries-dataset.ndjson.gz');
+$assetSize = (int) ($current['asset']['size_bytes'] ?? 0);
+$assetSizeLabel = formatBytes($assetSize);
 
 $entry = implode("\n", [
     "## [{$newPackageVersion}] — {$releaseDate}",
@@ -28,6 +31,7 @@ $entry = implode("\n", [
     '',
     '### Statistik',
     '- Total boundaries: ' . $oldTotal . ' -> ' . $newTotal . ' (' . formatDelta($delta) . ')',
+    "- Asset dataset: `{$assetName}` ({$assetSizeLabel})",
     '',
 ]);
 
@@ -42,6 +46,7 @@ $releaseNotes = implode("\n", [
     '',
     '### Statistik Data',
     '- Total boundaries: ' . $oldTotal . ' -> ' . $newTotal . ' (' . formatDelta($delta) . ')',
+    "- Asset dataset: `{$assetName}` ({$assetSizeLabel})",
     '',
     '### Update di project Anda',
     '```bash',
@@ -89,6 +94,19 @@ function formatDelta(int $delta): string
     }
 
     return (string) $delta;
+}
+
+function formatBytes(int $bytes): string
+{
+    if ($bytes <= 0) {
+        return '0 B';
+    }
+
+    $units = ['B', 'KB', 'MB', 'GB'];
+    $power = min((int) floor(log($bytes, 1024)), count($units) - 1);
+    $value = $bytes / (1024 ** $power);
+
+    return number_format($value, $power === 0 ? 0 : 2) . ' ' . $units[$power];
 }
 
 function injectChangelogEntry(string $contents, string $entry, string $newVersion): string
