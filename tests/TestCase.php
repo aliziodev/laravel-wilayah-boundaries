@@ -18,10 +18,17 @@ abstract class TestCase extends OrchestraTestCase
 
     protected function defineDatabaseMigrations(): void
     {
-        // Jalankan migrasi package utama dulu
-        $this->loadMigrationsFrom(
-            realpath(__DIR__.'/../../laravel-wilayah/src/Database/Migrations')
-        );
+        // Support monorepo lokal dan layout vendor di CI/GitHub Actions.
+        $coreMigrationPaths = [
+            realpath(__DIR__.'/../../laravel-wilayah/src/Database/Migrations'),
+            realpath(__DIR__.'/../vendor/aliziodev/laravel-wilayah/src/Database/Migrations'),
+        ];
+
+        foreach (array_filter($coreMigrationPaths) as $path) {
+            $this->loadMigrationsFrom($path);
+            break;
+        }
+
         // Lalu migrasi boundaries
         $this->loadMigrationsFrom(__DIR__.'/../src/Database/Migrations');
     }
