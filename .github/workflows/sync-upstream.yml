@@ -15,7 +15,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.PAT_TOKEN }}
           fetch-depth: 0
 
       - name: Setup PHP
@@ -31,7 +30,7 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/repos/cahyadsn/wilayah_boundaries/commits/main" \
-            | jq -r '.sha')
+            | php -r '$data = json_decode(stream_get_contents(STDIN), true); echo $data["sha"] ?? "null";')
 
           CURRENT_HASH=$(php -r "
             \$v = @include 'data/boundaries/version.php';
@@ -41,13 +40,25 @@ jobs:
           echo "upstream_hash=$UPSTREAM_HASH" >> $GITHUB_OUTPUT
           echo "current_hash=$CURRENT_HASH"   >> $GITHUB_OUTPUT
 
-          if [ "$UPSTREAM_HASH" != "$CURRENT_HASH" ] && [ "$UPSTREAM_HASH" != "null" ]; then
+          if [ "$UPSTREAM_HASH" = "null" ]; then
+            echo "Gagal membaca hash upstream dari GitHub API."
+            exit 1
+          fi
+
+          if [ "$UPSTREAM_HASH" != "$CURRENT_HASH" ]; then
             echo "changed=true"  >> $GITHUB_OUTPUT
             echo "📦 Boundaries berubah: $CURRENT_HASH → $UPSTREAM_HASH"
           else
             echo "changed=false" >> $GITHUB_OUTPUT
             echo "✅ Boundaries sudah up-to-date."
           fi
+
+      - name: Set release metadata
+        if: steps.check.outputs.changed == 'true'
+        id: meta
+        run: |
+          cp data/boundaries/version.php /tmp/boundaries-version-before.php 2>/dev/null || true
+          echo "release_date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
 
       - name: Jalankan Normalizer Boundaries
         if: steps.check.outputs.changed == 'true'
@@ -68,6 +79,7 @@ jobs:
           ")
           IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
           NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
+          echo "current_version=$CURRENT" >> $GITHUB_OUTPUT
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
           php -r "
@@ -76,12 +88,23 @@ jobs:
             file_put_contents('composer.json', json_encode(\$c, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL);
           "
 
+      - name: Generate changelog and release notes
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          php .github/scripts/generate_changelog.php \
+            /tmp/boundaries-version-before.php \
+            data/boundaries/version.php \
+            CHANGELOG.md \
+            .github/release-notes.md \
+            "${{ steps.version.outputs.current_version }}" \
+            "${{ steps.version.outputs.new_version }}"
+
       - name: Commit & Push
         if: steps.check.outputs.changed == 'true'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/ composer.json
+          git add data/ composer.json CHANGELOG.md
           git commit -m "data: sync boundaries $(date +%Y-%m-%d) [skip ci]
 
           Source: cahyadsn/wilayah_boundaries@${{ steps.check.outputs.upstream_hash }}"
@@ -92,17 +115,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ steps.version.outputs.new_version }}
-          name: "v${{ steps.version.outputs.new_version }} — Boundaries Sync $(date +%Y-%m-%d)"
-          body: |
-            ## 🗺 Update Data Batas Wilayah
-
-            Sinkronisasi otomatis dari `cahyadsn/wilayah_boundaries`.
-
-            **Source commit:** `${{ steps.check.outputs.upstream_hash }}`
-
-            ### Update di project Anda:
-            ```bash
-            composer update aliziodev/laravel-wilayah-boundaries
-            php artisan boundaries:sync
-            php artisan boundaries:seed
-            ```
+          name: "v${{ steps.version.outputs.new_version }} - Boundaries Sync ${{ steps.meta.outputs.release_date }}"
+          body_path: .github/release-notes.md
+          generate_release_notes: false
