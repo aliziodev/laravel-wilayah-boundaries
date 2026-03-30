@@ -11,6 +11,12 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 
 ---
 
+## [1.0.7] — 2026-03-30
+
+### Code Changes
+- feat: add automated upstream sync workflow to fetch and release boundary updates (19f81cc)
+---
+
 ## [1.0.6] — 2026-03-30
 
 ### Code Changes
@@ -65,10 +71,11 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 - Total boundaries: 0 -> 4414 (+4414)
 ---
 
-[Unreleased]: https://github.com/aliziodev/laravel-wilayah-boundaries/compare/v1.0.6...HEAD
+[Unreleased]: https://github.com/aliziodev/laravel-wilayah-boundaries/compare/v1.0.7...HEAD
 [1.0.1]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.1
 [1.0.2]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.2
 [1.0.3]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.3
 [1.0.4]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.4
 [1.0.5]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.5
 [1.0.6]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.6
+[1.0.7]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.7
