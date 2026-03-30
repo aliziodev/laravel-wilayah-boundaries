@@ -11,6 +11,12 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 
 ---
 
+## [1.0.6] — 2026-03-30
+
+### Code Changes
+- chore: add version metadata file and remove hardcoded version from composer.json (d371a5e)
+---
+
 ## [1.0.5] — 2026-03-30
 
 ### Code Changes
@@ -59,9 +65,10 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 - Total boundaries: 0 -> 4414 (+4414)
 ---
 
-[Unreleased]: https://github.com/aliziodev/laravel-wilayah-boundaries/compare/v1.0.5...HEAD
+[Unreleased]: https://github.com/aliziodev/laravel-wilayah-boundaries/compare/v1.0.6...HEAD
 [1.0.1]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.1
 [1.0.2]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.2
 [1.0.3]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.3
 [1.0.4]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.4
 [1.0.5]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.5
+[1.0.6]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.6
