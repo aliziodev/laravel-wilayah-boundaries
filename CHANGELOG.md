@@ -11,6 +11,12 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 
 ---
 
+## [1.0.5] — 2026-03-30
+
+### Code Changes
+- feat: add automated release workflow and update testbench dependency version (d38c3ad)
+---
+
 ## [1.0.4] — 2026-03-07
 
 ### Data Sync
@@ -53,8 +59,9 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 - Total boundaries: 0 -> 4414 (+4414)
 ---
 
-[Unreleased]: https://github.com/aliziodev/laravel-wilayah-boundaries/compare/v1.0.4...HEAD
+[Unreleased]: https://github.com/aliziodev/laravel-wilayah-boundaries/compare/v1.0.5...HEAD
 [1.0.1]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.1
 [1.0.2]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.2
 [1.0.3]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.3
 [1.0.4]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.4
+[1.0.5]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.5
