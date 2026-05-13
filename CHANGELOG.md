@@ -11,6 +11,17 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 
 ---
 
+## [1.0.8] — 2026-05-13
+
+### Data Sync
+- Package version: `1.0.7` -> `1.0.8`
+- Upstream `cahyadsn/wilayah_boundaries`: `90f900873a13` -> `a386adb9ae54`
+
+### Statistik
+- Total boundaries: 90804 -> 90804 (0)
+- Asset dataset: `boundaries-dataset-v1.0.8.ndjson.gz` (99.86 MB)
+---
+
 ## [1.0.7] — 2026-03-30
 
 ### Code Changes
@@ -71,7 +82,7 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 - Total boundaries: 0 -> 4414 (+4414)
 ---
 
-[Unreleased]: https://github.com/aliziodev/laravel-wilayah-boundaries/compare/v1.0.7...HEAD
+[Unreleased]: https://github.com/aliziodev/laravel-wilayah-boundaries/compare/v1.0.8...HEAD
 [1.0.1]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.1
 [1.0.2]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.2
 [1.0.3]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.3
@@ -79,3 +90,4 @@ dan package ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 [1.0.5]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.5
 [1.0.6]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.6
 [1.0.7]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.7
+[1.0.8]: https://github.com/aliziodev/laravel-wilayah-boundaries/releases/tag/v1.0.8
